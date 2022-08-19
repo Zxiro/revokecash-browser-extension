@@ -9,6 +9,7 @@ const messagePorts: { [index: string]: Browser.Runtime.Port } = {};
 const approvedMessages: string[] = [];
 
 const init = async (remotePort: Browser.Runtime.Port) => {
+  console.log('REV COnnected');
   remotePort.onMessage.addListener((message) => {
     if (message.data.type === RequestType.REGULAR) {
       return processRegularRequest(message, remotePort);
@@ -23,6 +24,7 @@ const init = async (remotePort: Browser.Runtime.Port) => {
 Browser.runtime.onConnect.addListener(init);
 
 Browser.runtime.onMessage.addListener((data) => {
+  console.log('onMes');
   const responsePort = messagePorts[data.id];
 
   if (data.data) {
